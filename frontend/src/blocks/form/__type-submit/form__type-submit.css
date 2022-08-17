@@ -1,0 +1,36 @@
+.form__type-submit {
+    width: 358px;
+    height: 50px;
+    background: #000000;
+    border-radius: 2px;
+    color: white;
+    border: none;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    margin-bottom: 37px;
+    margin-top: 18px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .form__type-submit:hover {
+    opacity: 0.8;
+    transition: 0.5s;
+  }
+  
+  @media (max-width: 670px) {
+    .form__type-submit {
+      width: 238px;
+      height: 46px;
+      font-size: 14px;
+      line-height: 17px;
+      margin-bottom: 25px;
+      margin-top: 45px;
+    }
+  }
+  

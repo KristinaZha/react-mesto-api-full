@@ -1,0 +1,9 @@
+.entry{
+    max-width: 880px;
+    margin: auto;
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+}

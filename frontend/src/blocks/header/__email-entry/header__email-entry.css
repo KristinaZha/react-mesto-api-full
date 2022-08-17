@@ -1,0 +1,14 @@
+.header__email-entry{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    color: #FFFFFF;
+}
+@media (max-width: 670px){
+    .header__email-entry{
+        font-size: 14px;
+        line-height: 17px;
+    }
+}

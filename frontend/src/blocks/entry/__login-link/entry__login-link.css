@@ -1,0 +1,22 @@
+.entry__login-link{  
+    cursor: pointer;
+    background-color: transparent;
+    transition: .5s;
+    color: #FFFFFF;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    border: none;
+    margin: 0 auto;
+    text-decoration: none; 
+}
+@media(max-width:670px){
+    .entry__login-link{
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
+    }
+}

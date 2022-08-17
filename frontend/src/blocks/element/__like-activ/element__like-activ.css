@@ -1,0 +1,11 @@
+.element__like-activ{
+  width: 22px;
+  height: 19px;
+  border: none;
+  background-image: url(../../../images/Union.jpg);
+  background-color: transparent;
+  padding: 0;
+  cursor: pointer;
+  
+
+}

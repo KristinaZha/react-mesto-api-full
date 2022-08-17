@@ -1,0 +1,11 @@
+.form {
+  padding-left: 36px;
+  padding-right: 36px;
+}
+
+@media (max-width: 670px) {
+  .form {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+}

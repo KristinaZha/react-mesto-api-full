@@ -1,0 +1,16 @@
+.entry__title{
+    text-align: center;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+    margin: 0 0 50px 0;
+}
+@media (max-width: 670px){
+    .entry__title{
+        font-size: 20px;
+        line-height: 24px;
+        text-align: center;
+    }
+}

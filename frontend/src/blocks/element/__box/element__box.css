@@ -1,0 +1,11 @@
+.element__box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  margin-left: 21px;
+  margin-right: 15px;
+  margin-top: 25px;
+  margin-bottom: 31px;
+  max-width: 246px;
+}

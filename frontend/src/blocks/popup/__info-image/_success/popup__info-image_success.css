@@ -1,0 +1,5 @@
+.popup__info-image_success{
+    background-image: url(../../../../images/success.svg);
+    margin-top: 60px;
+    margin-bottom: 32px;
+}
