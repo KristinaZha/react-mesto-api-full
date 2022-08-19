@@ -82,7 +82,7 @@ function App() {
 
         setSuccessInfo(true);
         setInfoTooltip(true);
-        history.push("/sign-in");
+        history.push("/signin");
       })
       .catch((err) => {
         console.log(err);
@@ -107,7 +107,7 @@ function App() {
   function handleSignOut() {
     localStorage.removeItem("jwt");
     setLoggedIn(false);
-    history.push("/sign-in");
+    history.push("/signin");
   }
   //like card
   function handleCardLike(card) {
@@ -223,9 +223,9 @@ function App() {
               />
             </ProtectedRoute>
 
-            <Route path="/sign-in">
+            <Route path="/signin">
               <Header userData="">
-                <Link className="header__button" to="/sign-up">
+                <Link className="header__button" to="/signup">
                   Регистрация
                 </Link>
               </Header>
@@ -233,9 +233,9 @@ function App() {
               <Login handleLogin={handleLogin} />
             </Route>
 
-            <Route path="/sign-up">
+            <Route path="/signup">
               <Header userData="">
-                <Link className="header__button" to="/sign-in">
+                <Link className="header__button" to="/signin">
                   Войти
                 </Link>
               </Header>

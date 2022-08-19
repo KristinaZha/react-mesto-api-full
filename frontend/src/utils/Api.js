@@ -1,7 +1,13 @@
 export class Api {
-  constructor({ baseUrl, headers }) {
-    this._headers = headers;
+  constructor({ baseUrl}) {
     this._baseUrl = baseUrl;
+  }
+  
+  get _headers() {
+    return {
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    }
   }
 
   _checkResponse(res) {
@@ -68,11 +74,7 @@ export class Api {
 }
 
 const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-37",
-  headers: {
-    authorization: "1d40ba82-b695-4e24-8fd8-c7e66dc7565f",
-    "Content-Type": "application/json",
-  },
-});
+  baseUrl: "https://api.praktikumkristina.kristina.nomoredomains.sbs",
+  });
 
 export default api;

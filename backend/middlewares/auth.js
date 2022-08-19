@@ -1,4 +1,6 @@
 const jwt = require('jsonwebtoken');
+const { NODE_ENV, JWT_SECRET } = process.env;
+console.log('NODE_ENV, JWT_SECRET ==>', NODE_ENV, JWT_SECRET);
 const Error401 = require('../errors/Error401');
 
 module.exports = (req, _, next) => {
@@ -11,7 +13,7 @@ module.exports = (req, _, next) => {
   let payload;
 
   try {
-    payload = jwt.verify(token, 'some-secret-key');
+    payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key');
     req.user = payload;
   } catch (err) {
     return next(new Error401('Пройдите авторизацию'));

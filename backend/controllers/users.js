@@ -1,6 +1,8 @@
 /* eslint-disable no-shadow */
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 const user = require('../models/user');
 const Error400 = require('../errors/Error400');
 const Error404 = require('../errors/Error404');
@@ -132,6 +134,7 @@ const getUsers = (_, res, next) => {
 
 // логин пользователя
 const login = (req, res, next) => {
+  console.log('req.body: ', req.body);
   const { email, password } = req.body;
   return user
     .findUserByCredentials(email, password)
@@ -140,7 +143,7 @@ const login = (req, res, next) => {
         throw new Error400('Пользователь не найден');
       }
       res.send({
-        token: jwt.sign({ _id: userAuth._id }, 'some-secret-key', {
+        token: jwt.sign({ _id: userAuth._id }, NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key', {
           expiresIn: '7d',
         }),
       });
