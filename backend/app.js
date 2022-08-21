@@ -10,13 +10,22 @@ const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const Error404 = require('./errors/Error404');
 
+const corsSet = {
+  origin: [
+    'http://praktikumkristina.kristina.nomoredomains.sbs',
+    'https://praktikumkristina.kristina.nomoredomains.sbs',
+    'http://localhost:3000',
+  ],
+  credentials: true,
+};
+
 const regEx = /(?:(http|https):\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+/;
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
 const app = express();
 
-app.use(cors());
+app.use(cors(corsSet));
 
 const { PORT = 3000 } = process.env;
 

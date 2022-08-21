@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
+
 const { NODE_ENV, JWT_SECRET } = process.env;
+
 console.log('NODE_ENV, JWT_SECRET ==>', NODE_ENV, JWT_SECRET);
 const Error401 = require('../errors/Error401');
 
