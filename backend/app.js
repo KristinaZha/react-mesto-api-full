@@ -20,13 +20,8 @@ const app = express();
 
 app.use(cors({
   origin: [
+    'https://praktikumkristina.kristina.nomoredomains.sbs',
     'http://praktikumkristina.kristina.nomoredomains.sbs',
-    'https://praktikumkristina.kristina.nomoredomains.sbs',
-    'http://localhost:3000',
-    'https://localhost:3000',
-    'http://api.praktikumkristina.kristina.nomoredomains.sbs',
-    'https://praktikumkristina.kristina.nomoredomains.sbs',
-
   ],
   methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE'],
   allowedHeaders: ['Authorization', 'Content-Type'],
