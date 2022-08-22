@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+
 const { errors, celebrate, Joi } = require('celebrate');
 const cors = require('cors');
 const { userRouter } = require('./routes/users');
@@ -9,6 +10,7 @@ const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const Error404 = require('./errors/Error404');
+const corsOrigin = require('./utils/cors');
 
 const regEx = /(?:(http|https):\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+/;
 
@@ -18,15 +20,7 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 
-app.use(cors({
-  origin: [
-    'https://praktikumkristina.kristina.nomoredomains.sbs',
-    'http://praktikumkristina.kristina.nomoredomains.sbs',
-  ],
-  methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE'],
-  allowedHeaders: ['Authorization', 'Content-Type'],
-  credentials: true,
-}));
+app.use(cors(corsOrigin));
 
 app.use(express.json());
 

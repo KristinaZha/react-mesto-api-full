@@ -1,15 +1,9 @@
 export class Api {
-  constructor({ baseUrl}) {
+  constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
+    this._headers = headers;
   }
   
-  get _headers() {
-    return {
-      'Content-Type': 'application/json',
-      authorization: `Bearer ${localStorage.getItem("jwt")}`,
-    }
-  }
-
   _checkResponse(res) {
     return res.ok ? res.json() : Promise.reject(res.status);
   }
@@ -28,6 +22,7 @@ export class Api {
   editProfile(name, about) {
     return fetch(`${this._baseUrl}/users/me `, {
       method: "PATCH",
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({ name, about }),
     }).then(this._checkResponse);
@@ -36,6 +31,7 @@ export class Api {
   addCard(name, link) {
     return fetch(`${this._baseUrl}/cards `, {
       method: "POST",
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({ name, link }),
     }).then(this._checkResponse);
@@ -44,6 +40,7 @@ export class Api {
   deleteCard(id) {
     return fetch(`${this._baseUrl}/cards/${id} `, {
       method: "DELETE",
+      credentials: 'include',
       headers: this._headers,
     }).then(this._checkResponse);
   }
@@ -52,11 +49,13 @@ export class Api {
     if (isLiked) {
       return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
         method: "DELETE",
+        credentials: 'include',
         headers: this._headers,
       }).then(this._checkResponse);
     }
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
+      credentials: 'include',
       headers: this._headers,
     }).then(this._checkResponse);
   }
@@ -65,6 +64,7 @@ export class Api {
   changeAvatar(avatar) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
         avatar,
@@ -75,6 +75,9 @@ export class Api {
 
 const api = new Api({
   baseUrl: "https://api.praktikumkristina.kristina.nomoredomains.sbs",
+  headers: {
+    'Content-Type': 'application/json',
+  }
   });
 
 export default api;
