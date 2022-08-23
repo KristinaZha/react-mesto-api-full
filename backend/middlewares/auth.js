@@ -1,11 +1,8 @@
 const jwt = require('jsonwebtoken');
 
-const { NODE_ENV, JWT_SECRET } = process.env;
-
-console.log('NODE_ENV, JWT_SECRET ==>', NODE_ENV, JWT_SECRET);
 const Error401 = require('../errors/Error401');
 
-const extractBearerToken = (header) => header.replace('Bearer ', '');
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 module.exports = (req, _, next) => {
   const { authorization } = req.headers;
@@ -13,7 +10,7 @@ module.exports = (req, _, next) => {
   if (!authorization || !authorization.startsWith('Bearer ')) {
     throw new Error401('Пройдите авторизацию');
   }
-  const token = extractBearerToken(authorization);
+  const token = authorization.replace('Bearer ', '');
   let payload;
 
   try {
