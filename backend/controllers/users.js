@@ -141,14 +141,8 @@ const login = (req, res, next) => {
   return user
     .findUserByCredentials(email, password)
     .then((userAuth) => {
-      if (!userAuth) {
-        throw new Error400('Пользователь не найден');
-      }
-      res.send({
-        token: jwt.sign({ _id: userAuth._id }, NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key', {
-          expiresIn: '7d',
-        }),
-      });
+      const token = jwt.sign({ _id: userAuth._id }, NODE_ENV === 'production' ? JWT_SECRET : 'yandex-practicum', { expiresIn: '7d' });
+      res.send({ token });
     })
     .catch(() => {
       next(new Error401('Данные неверны'));
