@@ -2,13 +2,15 @@
 export const BASE_URL = 'https://api.praktikumkristina.kristina.nomoredomains.sbs';
 
 const checkResponse = (response) => {
-    console.log('response: ', response);
-    if (response.ok) {
-      return response.json();
-    }
-  
-    return Promise.reject(`Ошибка: ${response.status}`);
-    }
+  console.log('response: ', response);
+  if (response.ok) {
+    return response.json();
+  }
+
+  return response.json().then((res) => {
+    throw res.message[0].messages[0].message;
+  })
+}
   
 export const register = ({ email, password }) => {
     return fetch(`${BASE_URL}/signup`, {
