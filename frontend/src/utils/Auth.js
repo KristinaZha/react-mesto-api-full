@@ -41,9 +41,17 @@ export const getContent = (token) => {
     return fetch(`${BASE_URL}/users/me`, {
       method: 'GET',
       headers: {
-         'Accept': 'application/json',
         'Content-Type': 'application/json',
-       },
+        'Authorization': `Bearer ${token}`,
+       }
     })
-    .then(checkResponse);
-  };
+    .then(res => res.json())
+    .catch((err) => {
+        if(err.statusCode === 400){
+            console.log('Токен не передан или передан не в том формате')
+        } else if(err.statusCode === 401) {
+            console.log('Переданный токен неккоректен')
+        }
+    })
+  }
+
