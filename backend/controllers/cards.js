@@ -40,7 +40,7 @@ const deleteCard = (req, res, next) => {
       if (!pic.owner.equals(req.user._id)) {
         return next(new Error403('Попытка удалить чужую карточку'));
       }
-      return pic.remove().then(() => res.send({ message: 'Карточка удалена' }));
+      return pic.remove().then(() => res.send(pic));
     })
     .catch(next);
 };
@@ -58,7 +58,7 @@ const likeCard = (req, res, next) => {
       if (!like) {
         throw new Error404('Картинка не найдена или удалена');
       }
-      return res.status(200).send({ message: 'Вы поставили лайк' });
+      return res.status(200).send(like);
     })
     .catch((err) => {
       if (err.kind === 'ObjectId') {
@@ -79,7 +79,7 @@ const dislikeCard = (req, res, next) => {
       if (!like) {
         throw new Error404('Картинка не найдена или удалена ранее');
       }
-      return res.status(200).send({ message: 'Вы удалили лайк' });
+      return res.status(200).send(like);
     })
     .catch((err) => {
       if (err.kind === 'ObjectId') {

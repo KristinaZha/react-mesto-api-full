@@ -1,92 +1,100 @@
 import { useEffect, useState } from "react";
 import React from "react";
 import { Route, Switch, Link, useHistory } from "react-router-dom";
-
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-
 import PopupWithForm from "./PopupWithForm";
 import EditAvatarPopup from "./EditAvatarPopup";
 import EditProfilePopup from "./EditProfilePopup";
 import AddPlacePopup from "./AddPlacePopup";
 import ImagePopup from "./ImagePopup";
 import InfoTooltip from "./InfoTooltip";
-
 import Login from "./Login";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
-
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import api from "../utils/Api";
 import * as Auth from "../utils/Auth";
-
 function App() {
   const [isPopupAvatarOpen, setPopupAvatarOpened] = useState(false);
   const [isPopupProfileOpen, setPopupProfileOpened] = useState(false);
   const [isPopupPlaceOpen, setPopupPlaceOpened] = useState(false);
   const [infoTooltipOpen, setInfoTooltip] = useState(false);
-
   const [selectedCard, setSelectedCard] = useState({});
   const [cards, setCards] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
-
   const [loggedIn, setLoggedIn] = useState(false);
   const [success, setSuccessInfo] = useState(false);
   const [userData, setUserData] = useState(null);
-
   const history = useHistory();
+  
+  //useEffect(() => {
+    //tokenCheck();
+  //}, []);
 
-  useEffect(() => {
-    tokenCheck();
-  }, []);
+  //useEffect(() => {
+ //   if (loggedIn) {
+    //  Promise.all([api.getProfile(), api.getCards()]).then(
+      //  ([userData, cards]) => {
+      //    setCards(cards);
+//          setCurrentUser(userData);
+  //      }
+    //  );
 
-  useEffect(() => {
-    if (loggedIn) {
-      Promise.all([api.getProfile(), api.getCards()]).then(
-        ([userData, cards]) => {
-          setCards(cards);
-          setCurrentUser(userData);
-        }
-      );
-      history.push("/");
-      return;
-    }
-  }, [loggedIn, history]);
+    //  history.push("/");
+
+//return;
+    //}
+//  }, [loggedIn, history]);
 
   function handleLogin(email, password) {
     return Auth.authorize(email, password)
       .then((data) => {
         if (!data.token) {
           setSuccessInfo(false);
+
           setInfoTooltip(true);
         }
+
         setUserData({ email: data.email });
 
         localStorage.setItem("jwt", data.token);
+
         setLoggedIn(true);
       })
+
       .catch((err) => {
         console.log(err);
+
         setSuccessInfo(false);
+
         setInfoTooltip(true);
       });
   }
+
   function handleRegister(email, password) {
     return Auth.register(email, password)
+
       .then((data) => {
         if (!data.token) {
           setSuccessInfo(false);
+
           setInfoTooltip(true);
         }
 
         setSuccessInfo(true);
+
         setInfoTooltip(true);
+
         history.push("/signin");
       })
+
       .catch((err) => {
         console.log(err);
+
         setSuccessInfo(false);
+
         setInfoTooltip(true);
       });
   }
@@ -94,11 +102,14 @@ function App() {
   function tokenCheck() {
     if (localStorage.getItem("jwt")) {
       let jwt = localStorage.getItem("jwt");
+
       Auth.getContent(jwt).then((res) => {
         if (res) {
           console.log(res);
+
           setLoggedIn(true);
-          setUserData({ email: res.data.email });
+
+          setUserData({ email: res.email });
         }
       });
     }
@@ -106,100 +117,142 @@ function App() {
 
   function handleSignOut() {
     localStorage.removeItem("jwt");
+
     setLoggedIn(false);
+
     history.push("/signin");
   }
+
   //like card
+
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
+
     api
+
       .changeLike(card._id, isLiked)
+
       .then((newCard) => {
         setCards((state) =>
           state.map((c) => (c._id === card._id ? newCard : c))
         );
       })
+
       .catch((err) => {
         console.log(err);
       });
   }
+
   //delete card
+
   function handleCardDelete(card) {
     api
+
       .deleteCard(card._id)
+
       .then(() =>
         setCards((state) => state.filter((c) => c._id !== card._id && c))
       )
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-  //
-  function handleUpdateUser(user) {
-    api
-      .editProfile(user.name, user.about)
-      .then((editUser) => {
-        setCurrentUser({
-          ...currentUser,
-          name: editUser.name,
-          about: editUser.about,
-        });
-        closePopups();
-      })
+
       .catch((err) => {
         console.log(err);
       });
   }
 
   //
-  function handleChangeAvatar(data) {
+
+  function handleUpdateUser(user) {
     api
-      .changeAvatar(data.avatar)
-      .then((res) => {
+
+      .editProfile(user.name, user.about)
+
+      .then((editUser) => {
         setCurrentUser({
           ...currentUser,
-          avatar: res.avatar,
+
+          name: editUser.name,
+
+          about: editUser.about,
         });
+
         closePopups();
       })
+
       .catch((err) => {
         console.log(err);
       });
   }
+
   //
-  function handleAddPlace(card) {
+
+  function handleChangeAvatar(data) {
     api
-      .addCard(card.name, card.link)
-      .then((newCard) => {
-        setCards([newCard, ...cards]);
+
+      .changeAvatar(data.avatar)
+
+      .then((res) => {
+        setCurrentUser({
+          ...currentUser,
+
+          avatar: res.avatar,
+        });
+
         closePopups();
       })
+
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  //
+
+  function handleAddPlace(card) {
+    api
+
+      .addCard(card.name, card.link)
+
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+
+        closePopups();
+      })
+
       .catch((err) => {
         console.log(err);
       });
   }
 
   // open popup
+
   function handleEditProfileClick() {
     setPopupProfileOpened(true);
   }
+
   function handleAddPlaceClick() {
     setPopupPlaceOpened(true);
   }
+
   function handleEditAvatarClick() {
     setPopupAvatarOpened(true);
   }
+
   function handleCardClick(card) {
     setSelectedCard(card);
   }
 
   function closePopups() {
     setPopupProfileOpened(false);
+
     setPopupAvatarOpened(false);
+
     setPopupPlaceOpened(false);
+
     setSelectedCard({});
+
     setInfoTooltip(false);
   }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="body">
@@ -239,6 +292,7 @@ function App() {
                   Войти
                 </Link>
               </Header>
+
               <Register handleRegister={handleRegister} />
             </Route>
           </Switch>
@@ -271,6 +325,7 @@ function App() {
           />
 
           <ImagePopup onClose={closePopups} card={selectedCard} />
+
           <InfoTooltip
             isOpen={infoTooltipOpen}
             onClose={closePopups}

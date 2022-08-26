@@ -84,7 +84,7 @@ const getCurrentUser = (req, res, next) => {
   user
     .findById(req.user._id)
     .then((userMe) => {
-      res.send({ data: userMe });
+      res.send({ userMe });
     })
     .catch((err) => {
       next(err);

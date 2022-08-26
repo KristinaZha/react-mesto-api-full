@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const { errors, celebrate, Joi } = require('celebrate');
 const { userRouter } = require('./routes/users');
@@ -9,7 +10,6 @@ const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const Error404 = require('./errors/Error404');
-const cors = require('./utils/cors');
 
 const regEx = /(?:(http|https):\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+/;
 
@@ -21,7 +21,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use(cors);
+app.use(cors());
 
 app.use(requestLogger); // подключаем логгер запросов
 
