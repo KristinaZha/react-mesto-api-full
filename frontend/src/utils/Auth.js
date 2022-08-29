@@ -52,18 +52,16 @@ export const authorize = (email, password) => {
     });
 };
 
+
 export const getContent = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
-
     headers: {
       "Content-Type": "application/json",
-
       Authorization: `Bearer ${token}`,
     },
   })
     .then((res) => res.json())
-
     .catch((err) => {
       if (err.statusCode === 400) {
         console.log("Токен не передан или передан не в том формате");
