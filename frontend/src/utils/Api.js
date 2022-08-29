@@ -1,7 +1,6 @@
 export class Api {
   constructor({ baseUrl }) {
-  
-    this._baseUrl = baseUrl;
+      this._baseUrl = baseUrl;
   }
 
   get _headers() {
@@ -20,7 +19,7 @@ export class Api {
     }).then(this._checkResponse);
   }
 
-  getProfile() {
+  getProfile() {//user info+
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
     }).then(this._checkResponse);
@@ -29,9 +28,7 @@ export class Api {
   editProfile(name, about) {
     return fetch(`${this._baseUrl}/users/me `, {
       method: "PATCH",
-
       headers: this._headers,
-
       body: JSON.stringify({ name, about }),
     }).then(this._checkResponse);
   }
@@ -39,9 +36,7 @@ export class Api {
   addCard(name, link) {
     return fetch(`${this._baseUrl}/cards `, {
       method: "POST",
-
       headers: this._headers,
-
       body: JSON.stringify({ name, link }),
     }).then(this._checkResponse);
   }
@@ -49,7 +44,6 @@ export class Api {
   deleteCard(id) {
     return fetch(`${this._baseUrl}/cards/${id} `, {
       method: "DELETE",
-
       headers: this._headers,
     }).then(this._checkResponse);
   }
@@ -58,14 +52,11 @@ export class Api {
     if (isLiked) {
       return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
         method: "DELETE",
-
         headers: this._headers,
       }).then(this._checkResponse);
     }
-
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
-
       headers: this._headers,
     }).then(this._checkResponse);
   }
@@ -73,9 +64,7 @@ export class Api {
   changeAvatar(avatar) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
-
       headers: this._headers,
-
       body: JSON.stringify({
         avatar,
       }),
