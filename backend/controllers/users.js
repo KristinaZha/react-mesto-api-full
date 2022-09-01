@@ -1,6 +1,5 @@
 /* eslint-disable no-shadow */
 const bcrypt = require('bcrypt');
-
 const jwt = require('jsonwebtoken');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
@@ -14,19 +13,15 @@ const Error401 = require('../errors/Error401');
 // обновление профиля
 const updateProfile = (req, res, next) => {
   const { name, about } = req.body;
-  user
-    .findByIdAndUpdate(
-      req.user._id,
-      { name, about },
-      { new: true, runValidators: true },
-    )
-    .then((changeUser) => {
-      if (!changeUser) {
+  user.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
+    .then((user) => {
+      if (!user) {
         throw new Error404('Пользователь не существует');
       }
-      return res.status(200).send(changeUser);
+      return res.status(200).send(user);
     })
     .catch((err) => {
+      console.log(err);
       if (err.name === 'ValidationError') {
         return next(new Error400('Не соответствует требованию.'));
       }
@@ -81,6 +76,7 @@ const getUser = (req, res, next) => {
 
 // получение информвции о пользователе
 const getCurrentUser = (req, res, next) => {
+  console.log(req.matched);
   user
     .findById(req.user._id)
     .then((userMe) => {
@@ -93,6 +89,8 @@ const getCurrentUser = (req, res, next) => {
 
 // создание нового пользователя
 const createUser = (req, res, next) => {
+  console.log('request.body: ', req.body);
+
   const {
     name, about, avatar, email, password,
   } = req.body;
@@ -138,10 +136,10 @@ const getUsers = (_, res, next) => {
 const login = (req, res, next) => {
   console.log('req.body: ', req.body);
   const { email, password } = req.body;
-  return user
-    .findUserByCredentials(email, password)
+
+  return user.findUserByCredentials(email, password)
     .then((userAuth) => {
-      const token = jwt.sign({ _id: userAuth._id }, NODE_ENV === 'production' ? JWT_SECRET : 'yandex-practicum', { expiresIn: '7d' });
+      const token = jwt.sign({ _id: userAuth._id }, NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key', { expiresIn: '7d' });
       res.send({ token });
     })
     .catch(() => {

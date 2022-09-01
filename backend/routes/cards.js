@@ -19,7 +19,7 @@ router.delete('/:id', celebrate({
 
 // get cards
 
-router.get('/', getCards);
+router.get('', getCards);
 
 // create new card
 router.post('/', celebrate({
