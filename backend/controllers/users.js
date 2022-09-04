@@ -76,11 +76,11 @@ const getUser = (req, res, next) => {
 
 // получение информвции о пользователе
 const getCurrentUser = (req, res, next) => {
-  console.log(req.matched);
+  console.log(req.user._id);
   user
     .findById(req.user._id)
     .then((userMe) => {
-      res.send({ userMe });
+      res.send({ data: userMe });
     })
     .catch((err) => {
       next(err);
@@ -134,7 +134,6 @@ const getUsers = (_, res, next) => {
 
 // логин пользователя
 const login = (req, res, next) => {
-  console.log('req.body: ', req.body);
   const { email, password } = req.body;
 
   return user.findUserByCredentials(email, password)

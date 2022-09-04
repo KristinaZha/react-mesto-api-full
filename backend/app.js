@@ -15,7 +15,7 @@ const regEx = /(?:(http|https):\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3001 } = process.env;
 
 const app = express();
 
@@ -50,26 +50,19 @@ app.post('/signup', celebrate({
   }),
 }), createUser);
 
+// ставим защиту авторизацией
+app.use(auth);
 // роуты пользователей
-
 app.use('/users', userRouter);
-
 // роуты карточек
 app.use('/cards', cardRouter);
 
-// ставим защиту авторизацией
-app.use(auth);
-
 app.use(errorLogger); // подключаем логгер ошибок
-
 // обработчик несуществующих роутов
 app.use((_, res, next) => next(new Error404('Страница по указанному маршруту не найдена')));
-
 app.use(errors());
-
 app.use((error, _, res, next) => {
   const { statusCode = 500, message } = error;
-
   res.status(statusCode).send({ message: statusCode === 500 ? 'Ошибка сервера' : message });
   next();
 });

@@ -18,7 +18,6 @@ router.delete('/:id', celebrate({
 }), deleteCard);
 
 // get cards
-
 router.get('', getCards);
 
 // create new card

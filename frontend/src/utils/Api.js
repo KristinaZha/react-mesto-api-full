@@ -21,8 +21,9 @@ export class Api {
 
   getProfile() {//user info+
     return fetch(`${this._baseUrl}/users/me`, {
+      method: "GET",
       headers: this._headers,
-    }).then(this._checkResponse);
+   }).then(this._checkResponse);
   }
 
   editProfile(name, about) {
@@ -73,7 +74,7 @@ export class Api {
 }
 
 const api = new Api({
-  baseUrl: "https://api.praktikumkristina.kristina.nomoredomains.sbs",
+  baseUrl: "http://localhost:3001",
 
   });
 

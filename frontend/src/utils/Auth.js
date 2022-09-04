@@ -1,4 +1,4 @@
-export const BASE_URL = "https://api.praktikumkristina.kristina.nomoredomains.sbs";
+export const BASE_URL = "http://localhost:3001";
 
 const checkResponse = (response) => {
   console.log("response: ", response);
