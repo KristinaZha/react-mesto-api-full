@@ -74,7 +74,7 @@ export class Api {
 }
 
 const api = new Api({
-  baseUrl: "http://localhost:3001",
+  baseUrl: "https://api.praktikumkristina.kristina.nomoredomains.sbs/",
 
   });
 
