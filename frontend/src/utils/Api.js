@@ -73,7 +73,7 @@ export class Api {
 }
 
 const api = new Api({
-  baseUrl: "http://api.praktikumkristina.kristina.nomoredomains.sbs",
+  baseUrl: "https://api.praktikumkristina.kristina.nomoredomains.sbs",
 
   });
 
