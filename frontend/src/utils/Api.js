@@ -19,9 +19,8 @@ export class Api {
     }).then(this._checkResponse);
   }
 
-  getProfile() {//user info+
+  getProfile() {
     return fetch(`${this._baseUrl}/users/me`, {
-      method: "GET",
       headers: this._headers,
    }).then(this._checkResponse);
   }
@@ -74,7 +73,7 @@ export class Api {
 }
 
 const api = new Api({
-  baseUrl: "https://api.praktikumkristina.kristina.nomoredomains.sbs/",
+  baseUrl: "http://api.praktikumkristina.kristina.nomoredomains.sbs",
 
   });
 

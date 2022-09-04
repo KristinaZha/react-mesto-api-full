@@ -76,11 +76,15 @@ const getUser = (req, res, next) => {
 
 // получение информвции о пользователе
 const getCurrentUser = (req, res, next) => {
-  console.log(req.user._id);
+  console.log(req.matched);
   user
     .findById(req.user._id)
-    .then((userMe) => {
-      res.send({ data: userMe });
+    .then((user) => {
+      res.send({
+        name: user.name,
+        about: user.about,
+        avatar: user.avatar,
+      });
     })
     .catch((err) => {
       next(err);
