@@ -27,6 +27,7 @@
 @import url(./blocks/element/element.css);
 @import url(./blocks/element/__delete/element__delete.css);
 @import url(./blocks/element/__delete/_hidden/element__delete_hidden.css);
+@import url(./blocks/element/__delete/_visible/element__delete_visible.css);
 @import url(./blocks/element/__pic/element__pic.css);
 @import url(./blocks/element/__box/element__box.css);
 @import url(./blocks/element/__title/element__title.css);

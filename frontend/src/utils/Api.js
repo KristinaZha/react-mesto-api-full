@@ -48,18 +48,21 @@ export class Api {
     }).then(this._checkResponse);
   }
 
-  changeLike(cardId, isLiked) {
-    if (isLiked) {
-      return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-        method: "DELETE",
-        headers: this._headers,
-      }).then(this._checkResponse);
-    }
+  addLike(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: this._headers,
+    })
+    .then(this._checkResponse);
+  }
+
+  deleteLike(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: "DELETE",
+      headers: this._headers,
     }).then(this._checkResponse);
   }
+  
 
   changeAvatar(avatar) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
@@ -73,7 +76,7 @@ export class Api {
 }
 
 const api = new Api({
-  baseUrl: "https://api.praktikumkristina.kristina.nomoredomains.sbs",
+  baseUrl:  "https://praktikumkristina.kristina.nomoredomains.sbs/" ,
 
   });
 

@@ -86,18 +86,29 @@ function App() {
 
   //like card
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
-    api.changeLike(card._id, isLiked)
+    const isLiked = card.likes.some(i => i === currentUser._id);
+    console.log('card ==>', card);
+
+    if(!isLiked) {
+      api.addLike(card._id)
+        .then((newCard) => {
+          //console.log('newCard =>', newCard.card);
+          setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+        })
+        .catch( res => {
+          console.log(res);
+        })  
+    } else {
+    api.deleteLike(card._id)
       .then((newCard) => {
         setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
-        );
-      })
-      .catch((err) => {
-        console.log(err);
+          state.map((c) => c._id === card._id ? newCard : c));
+              })
+      .catch(res => {
+        console.log(res);
       });
   }
-
+  }
 //add card
   function handleAddPlace(card) {
     api.addCard(card.name, card.link)
@@ -113,12 +124,9 @@ function App() {
  //delete card
  function handleCardDelete(card) {
   api.deleteCard(card._id)
-    .then(() =>
-      setCards((state) => state.filter((c) => c._id !== card._id && c))
+    .then(() => setCards(state => state.filter(c => c._id !== card._id ))
     )
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch(err => console.log(err));
 }
 
   function handleRegister(email, password) {
