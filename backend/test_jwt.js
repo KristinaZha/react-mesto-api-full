@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
-const YOUR_JWT = 'b2beb307b02131a080c4ab090d48d3c6c1774caca71fea041fc37296a0484c92'; // вставьте сюда JWT, который вернул публичный сервер студента
-const SECRET_KEY_DEV = 'yandex-practicum'; // вставьте сюда секретный ключ для разработки из кода студента
+const YOUR_JWT = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzE2NWMxNjY0ODNmMjJlZGYwNjg0ODMiLCJpYXQiOjE2NjI0MDk3NjEsImV4cCI6MTY2MzAxNDU2MX0.tkF9RNzjU6PpVii3IY9cL5o_LkDm6VREzxd9JkIOyYE'; // вставьте сюда JWT, который вернул публичный сервер студента
+const SECRET_KEY_DEV = 'some-secret-key'; // вставьте сюда секретный ключ для разработки из кода студента
 try {
   // eslint-disable-next-line no-unused-vars
   const payload = jwt.verify(YOUR_JWT, SECRET_KEY_DEV);
